@@ -34,13 +34,11 @@ class RandomizedSet {
       return false;
     }
     int index = map.get(val);
-    map.remove(val);
-    if (index + 1 < list.size()) {
-      int lastVal = list.get(list.size() - 1);
-      map.put(lastVal, index);
-      list.set(index, lastVal);
-    }
+    int lastVal = list.get(list.size() - 1);
+    map.put(lastVal, index);
+    list.set(index, lastVal);
     list.remove(list.size() - 1);
+    map.remove(val);
     return true;
   }
 
@@ -52,7 +50,6 @@ class RandomizedSet {
     return list.get(index);
   }
 }
-
 
 /**
  * Your RandomizedSet object will be instantiated and called as such:
