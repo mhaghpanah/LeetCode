@@ -1,0 +1,28 @@
+class Solution {
+
+  String[] strs = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+  List<String> ans;
+  int n;
+
+  public void solve(String str, int i, char[] ca) {
+    if (i == n) {
+      ans.add(String.valueOf(ca));
+      return;
+    }
+    int d = str.charAt(i) - '0';
+    for (char ch : strs[d].toCharArray()) {
+      ca[i] = ch;
+      solve(str, i + 1, ca);
+    }
+  }
+
+  public List<String> letterCombinations(String digits) {
+    ans = new ArrayList<>();
+    if (digits == null || digits.length() == 0) {
+      return ans;
+    }
+    n = digits.length();
+    solve(digits, 0, new char[n]);
+    return ans;
+  }
+}
