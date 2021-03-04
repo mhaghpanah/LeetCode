@@ -40,7 +40,7 @@ class WordDictionary {
         }
         return false;
       } else {
-        if (!h.children.containsKey(word.charAt(i))) {
+        if (!h.children.containsKey(ch)) {
           return false;
         }
         h = h.children.get(ch);
