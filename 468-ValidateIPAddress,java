@@ -1,0 +1,49 @@
+class Solution {
+
+  public boolean isValidNum(String str) {
+    if (str.length() < 1 || str.length() > 3) return false;
+    if (str.length() > 1 && str.charAt(0) == '0') return false;
+    int v = 0;
+    for (char ch : str.toCharArray()) {
+      if ('0' <= ch && ch <= '9') {
+        v = v * 10 + ch - '0';
+      } else {
+        return false;
+      }
+    }
+    return v < 256;
+  }
+
+  public boolean isValidHex(String str) {
+    if (str.length() < 1 || str.length() > 4) return false;
+    for (char ch : str.toCharArray()) {
+      if ('0' <= ch && ch <= '9') continue;
+      if ('a' <= ch && ch <= 'f') continue;
+      if ('A' <= ch && ch <= 'F') continue;
+      return false;
+    }
+    return true;
+  }
+
+  public boolean isIP4(String IP) {
+    String[] strs = IP.split("\\.", -1);
+    if (strs.length != 4) return false;
+    for (String str : strs) {
+      if (!isValidNum(str)) return false;
+    }
+    return true;
+  }
+
+  public boolean isIP6(String IP) {
+    String[] strs = IP.split("\\:", -1);
+    if (strs.length != 8) return false;
+    for (String str : strs) {
+      if (!isValidHex(str)) return false;
+    }
+    return true;
+  }
+
+  public String validIPAddress(String IP) {
+    return isIP4(IP) ? "IPv4" : isIP6(IP) ? "IPv6" : "Neither";
+  }
+}
