@@ -1,46 +1,44 @@
 class Solution {
 
-  public int divide(int p, int q) {
-    if (p == Integer.MIN_VALUE && q == -1) {
+  public int divide(int dividend, int divisor) {
+    if (dividend == Integer.MIN_VALUE && divisor == -1) {
       return Integer.MAX_VALUE;
     }
-
     int neg = 2;
 
-    if (p > 0) {
-      p = -p;
+    if (dividend > 0) {
+      dividend = -dividend;
       neg--;
     }
 
-    if (q > 0) {
-      q = -q;
+    if (divisor > 0) {
+      divisor = -divisor;
       neg--;
+    }
+
+    int HALF_MIN_INT = -(1 << 30);
+    int pow = -1;
+    int q = divisor;
+
+    while (q + q >= dividend && q >= HALF_MIN_INT) {
+      pow += pow;
+      q += q;
     }
 
     int ans = 0;
+    while (dividend <= divisor) {
 
-    int d = q;
-    int pow = -1;
-    int HALF_INT_MIN = -1073741824;
-
-    while (d >= HALF_INT_MIN && p <= d + d) {
-      d += d;
-      pow += pow;
-    }
-
-    while (p <= q) {
-      if (p <= d) {
+      if (dividend <= q) {
         ans += pow;
-        p -= d;
+        dividend -= q;
       }
       pow >>= 1;
-      d >>= 1;
+      q >>= 1;
     }
 
     if (neg != 1) {
       ans = -ans;
     }
     return ans;
-
   }
 }
